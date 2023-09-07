@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moyo's work</title>
+  </head>
+  <body>
+    <style>
+      /* Add CSS styling for the calculator */
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      #calculator {
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+        margin: 5px;
+        cursor: pointer;
+      }
+
+      #display {
+        width: 100%;
+        height: 40px;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: right;
+      }
+    </style>
+    <div id="calculator">
+      <div id="display">0</div>
+      <button class="btn" id="btn1">1</button>
+      <button class="btn" id="btn2">2</button>
+      <button class="btn" id="btn3">3</button>
+      <button class="btn" id="btnAdd">+</button>
+      <br />
+      <button class="btn" id="btn4">4</button>
+      <button class="btn" id="btn5">5</button>
+      <button class="btn" id="btn6">6</button>
+      <button class="btn" id="btnSubtract">-</button>
+      <br />
+      <button class="btn" id="btn7">7</button>
+      <button class="btn" id="btn8">8</button>
+      <button class="btn" id="btn9">9</button>
+      <button class="btn" id="btnMultiply">*</button>
+      <br />
+      <button class="btn" id="btn0">0</button>
+      <button class="btn" id="btnDecimal">.</button>
+      <button class="btn" id="btnEquals">=</button>
+      <button class="btn" id="btnDivide">/</button>
+      <br />
+      <button class="btn" id="btnClear">C</button>
+      <button class="btn" id="btnSquareRoot">√</button>
+      <button class="btn" id="btnPower">^</button>
+    </div>
+
+    <script>
+      // JavaScript code for calculator functionality
+      const display = document.getElementById("display");
+      let currentInput = "0";
+      let previousInput = "0";
+      let operator = "";
+
+      function updateDisplay() {
+        display.textContent = currentInput;
+      }
+
+      function handleNumberClick(number) {
+        if (currentInput === "0") {
+          currentInput = number;
+        } else {
+          currentInput += number;
+        }
+        updateDisplay();
+      }
+
+      function handleOperatorClick(op) {
+        operator = op;
+        previousInput = currentInput;
+        currentInput = "0";
+      }
+
+      function handleEqualsClick() {
+        switch (operator) {
+          case "+":
+            currentInput = (
+              parseFloat(previousInput) + parseFloat(currentInput)
+            ).toString();
+            break;
+          case "-":
+            currentInput = (
+              parseFloat(previousInput) - parseFloat(currentInput)
+            ).toString();
+            break;
+          case "*":
+            currentInput = (
+              parseFloat(previousInput) * parseFloat(currentInput)
+            ).toString();
+            break;
+          case "/":
+            if (currentInput === "0") {
+              currentInput = "Error";
+            } else {
+              currentInput = (
+                parseFloat(previousInput) / parseFloat(currentInput)
+              ).toString();
+            }
+            break;
+          case "^":
+            currentInput = Math.pow(
+              parseFloat(previousInput),
+              parseFloat(currentInput)
+            ).toString();
+            break;
+          case "√":
+            currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+            break;
+          default:
+            break;
+        }
+        operator = "";
+        previousInput = "0";
+        updateDisplay();
+      }
+
+      function handleClearClick() {
+        currentInput = "0";
+        previousInput = "0";
+        operator = "";
+        updateDisplay();
+      }
+
+      // Attach click event listeners to buttons
+      document
+        .getElementById("btn1")
+        .addEventListener("click", () => handleNumberClick("1"));
+      document
+        .getElementById("btn2")
+        .addEventListener("click", () => handleNumberClick("2"));
+      document
+        .getElementById("btn3")
+        .addEventListener("click", () => handleNumberClick("3"));
+      document
+        .getElementById("btn4")
+        .addEventListener("click", () => handleNumberClick("4"));
+      document
+        .getElementById("btn5")
+        .addEventListener("click", () => handleNumberClick("5"));
+      document
+        .getElementById("btn6")
+        .addEventListener("click", () => handleNumberClick("6"));
+      document
+        .getElementById("btn7")
+        .addEventListener("click", () => handleNumberClick("7"));
+      document
+        .getElementById("btn8")
+        .addEventListener("click", () => handleNumberClick("8"));
+      document
+        .getElementById("btn9")
+        .addEventListener("click", () => handleNumberClick("9"));
+      document
+        .getElementById("btn0")
+        .addEventListener("click", () => handleNumberClick("0"));
+      document
+        .getElementById("btnDecimal")
+        .addEventListener("click", () => handleNumberClick("."));
+      document
+        .getElementById("btnAdd")
+        .addEventListener("click", () => handleOperatorClick("+"));
+      document
+        .getElementById("btnSubtract")
+        .addEventListener("click", () => handleOperatorClick("-"));
+      document
+        .getElementById("btnMultiply")
+        .addEventListener("click", () => handleOperatorClick("*"));
+      document
+        .getElementById("btnDivide")
+        .addEventListener("click", () => handleOperatorClick("/"));
+      document
+        .getElementById("btnPower")
+        .addEventListener("click", () => handleOperatorClick("^"));
+      document
+        .getElementById("btnSquareRoot")
+        .addEventListener("click", () => handleOperatorClick("√"));
+      document
+        .getElementById("btnEquals")
+        .addEventListener("click", handleEqualsClick);
+      document
+        .getElementById("btnClear")
+        .addEventListener("click", handleClearClick);
+
+      // Initialize the display
+      updateDisplay();
+    </script>
+  </body>
+</html>
